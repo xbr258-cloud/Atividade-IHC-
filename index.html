@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Refatoração IHC - GitHub Issues</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Protótipo de IHC</p>
+      <h1>GitHub Issues sem filtro punitivo por comando</h1>
+      <p class="subtitle">Refatoração de uma busca complexa para menus visuais e manipulação direta.</p>
+    </div>
+    <a class="github-button" href="https://github.com" target="_blank" rel="noreferrer">Sistema real usado: GitHub</a>
+  </header>
+
+  <main class="layout">
+    <section class="panel before-panel" aria-labelledby="antes-title">
+      <div class="section-header">
+        <span class="badge danger">Antes</span>
+        <h2 id="antes-title">Busca por linguagem de comando</h2>
+      </div>
+      <p class="muted">
+        No GitHub, o usuário pode filtrar issues digitando operadores como <strong>is:issue</strong>,
+        <strong>state:open</strong>, <strong>label:bug</strong>, <strong>assignee:@me</strong> e combinações booleanas.
+      </p>
+      <div class="command-box">
+        <label for="commandInput">Filtro digitado manualmente</label>
+        <textarea id="commandInput" rows="4">is:issue state:open label:bug assignee:@me sort:updated-desc</textarea>
+        <small>Erro comum: esquecer dois-pontos, digitar label errado ou misturar filtros sem entender a sintaxe.</small>
+      </div>
+      <div class="pain-list">
+        <h3>Pontos de alta memória de trabalho</h3>
+        <ul>
+          <li>O usuário precisa lembrar os nomes exatos dos qualificadores.</li>
+          <li>Precisa saber a ordem lógica dos filtros e como combiná-los.</li>
+          <li>Precisa traduzir uma intenção visual simples para texto técnico.</li>
+          <li>O erro aparece depois da tentativa, não durante a escolha.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="panel after-panel" aria-labelledby="depois-title">
+      <div class="section-header">
+        <span class="badge success">Depois</span>
+        <h2 id="depois-title">Filtro visual por menus e cartões</h2>
+      </div>
+      <p class="muted">
+        O mesmo objetivo foi mantido, mas agora o usuário escolhe opções reconhecíveis e organiza a busca sem decorar comandos.
+      </p>
+
+      <div class="builder">
+        <div class="field-grid">
+          <label>
+            Tipo
+            <select id="typeSelect">
+              <option value="is:issue">Issue</option>
+              <option value="is:pr">Pull Request</option>
+            </select>
+          </label>
+          <label>
+            Estado
+            <select id="stateSelect">
+              <option value="state:open">Aberto</option>
+              <option value="state:closed">Fechado</option>
+            </select>
+          </label>
+          <label>
+            Rótulo
+            <select id="labelSelect">
+              <option value="label:bug">Bug</option>
+              <option value="label:enhancement">Melhoria</option>
+              <option value="label:documentation">Documentação</option>
+              <option value="label:help-wanted">Ajuda desejada</option>
+            </select>
+          </label>
+          <label>
+            Responsável
+            <select id="assigneeSelect">
+              <option value="assignee:@me">Eu</option>
+              <option value="assignee:none">Sem responsável</option>
+              <option value="assignee:octocat">Octocat</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="chips-area">
+          <div>
+            <h3>Filtros escolhidos</h3>
+            <p class="hint">Arraste os cartões para reorganizar a prioridade visual.</p>
+          </div>
+          <div id="chips" class="chips" aria-live="polite"></div>
+        </div>
+
+        <div class="preview-card">
+          <div>
+            <p class="preview-label">Consulta gerada automaticamente</p>
+            <code id="queryPreview"></code>
+          </div>
+          <button id="copyButton" type="button">Copiar consulta</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="panel full-panel">
+    <h2>Resultado simulado</h2>
+    <div id="results" class="results"></div>
+  </section>
+
+  <section class="panel full-panel technical">
+    <h2>Justificativa técnica</h2>
+    <p>
+      A solução original do GitHub depende de uma linguagem de comando com qualificadores e operadores que exigem recordação ativa, como lembrar nomes, dois-pontos, valores aceitos e combinações possíveis. Na refatoração, a mesma tarefa foi convertida em menus visuais, cartões de filtros e pré-visualização automática da consulta, reduzindo a distância físico-cognitiva porque o usuário deixa de transformar mentalmente sua intenção em sintaxe textual e passa a reconhecer opções já disponíveis na interface. Antes, a carga de memória ficava no usuário; depois, ela passa para a própria interface, que apresenta as escolhas, impede combinações mais confusas e mostra o resultado gerado em tempo real.
+    </p>
+  </section>
+
+  <footer>
+    <p>Trabalho de Interação Humano-Computador — protótipo em HTML, CSS e JavaScript.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
